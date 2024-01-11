@@ -1,0 +1,24 @@
+#equalizzatore {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    height: 500px;
+    width: 100px;
+    background-color: pink;
+    margin: 20px auto;
+    padding: 10px;
+}
+
+.tassello {
+    height: 30px;
+    width: 100%;
+    background-color: white;
+    margin: 2px 0;
+    transition: background-color 0.1s ease;
+	border-radius: 50px;
+}
+
+.input-group {
+    text-align: center;
+    margin-top: 20px;
+}

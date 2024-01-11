@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap" rel="stylesheet">
+
+<title>Love Calculator</title>
+<style>
+    
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+			 background-color: #ff1356;          
+        }
+        .background-container {
+		  position: relative;
+            width: 100vw;
+            height: calc(100vw * (2190 / 1080));
+            background-image: url('base.png');
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center; /* Mantiene il contenuto centrato */
+            overflow: hidden;
+        }
+    .content {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+    }
+
+#name1 {
+    width: 225px;	
+    height: 40px;
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    top: -143px;
+    padding: 5px;   
+    font-size: 20px;
+
+    color: #fff;
+    text-align: left;
+    border: none;
+    border-radius: 50px;
+    outline: none;
+    background-color: transparent;
+	text-align: center;
+	 font-family: 'Roboto', sans-serif
+}
+
+
+#name2 {
+    width: 225px;	
+    height: 40px;
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    top: -53px;
+    padding: 5px;   
+    font-size: 20px;
+ 
+    color: #fff;
+    text-align: left;
+    border: none;
+    border-radius: 50px;
+    outline: none;
+    background-color: transparent;
+	text-align: center;
+	 font-family: 'Roboto', sans-serif
+}
+
+#name1::placeholder, #name2::placeholder {
+    color: #ffffff;
+    font-family: 'Roboto', sans-serif
+}
+
+#goToMachine {
+
+    width: 250px;  /* Larghezza fissa */
+    height: 250px;  /* Altezza fissa */
+position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 133px;    border: none;
+    border-radius: 250px;
+	border: none;
+  
+    background-color: transparent;
+	
+}
+
+
+#searchBar {
+    width: 225px;  
+    height: 40px;
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    top: -10px;
+        padding: 5px 10px 5px 30px; /* Aumentato il padding a sinistra */
+    font-size: 18px; 
+    text-align: left;
+    border: none;
+    border-radius: 50px;
+    background-color: transparent;
+    font-family: 'Roboto', sans-serif;
+	font-weight: bold;
+	color: #ff1493;
+	z-index: 1;
+}
+
+#searchBar:focus {
+    outline: none;
+    border: none;
+}
+
+.dropdown {
+    position: fixed; /* Mantenuto fixed per il posizionamento */
+    left: 50%; /* Centrato orizzontalmente */
+    top: 48px; /* Allineato con #searchBar */
+    transform: translateX(-50%);
+    display: inline-block;
+	z-index: 1;
+	 border: none;
+}
+
+.dropdown-content {
+    width: 200px;
+    position: absolute;
+    left: 50%; /* Centrato orizzontalmente rispetto al dropdown */
+    transform: translateX(-50%);
+    top: 42px; /* Posizionato sotto il #searchBar */
+    padding: 5px;
+    font-size: 15px;
+    font-family: 'Roboto', sans-serif;
+    color: #fff;
+     border: none;
+    border-radius: 0px;
+    outline: none;
+    background-color: #ff1356;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: none;
+	z-index: 1;
+}
+
+.dropdown-content input {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin: 10px;
+    border: none;
+    border-radius: 20px;
+    outline: none;
+    font-family: 'Roboto', sans-serif;
+    color: #fff; /* Testo bianco */
+    z-index: 1;
+}
+
+.options-container {
+    max-height: 100px;
+	 overflow-y: auto;
+	z-index: 1;
+	
+}
+
+.options-container a {
+    color: #fff; /* Testo bianco */
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    border-bottom: 1px solid #ddd;
+	z-index: 1;
+	 border: none;
+}
+
+.options-container a:hover {
+     border: none;
+    color: #000; /* Testo nero al passaggio del mouse per contrasto */
+    border-radius: 10px;
+	z-index: 1;
+}
+
+.show {display: block;}
+
+
+</style>
+</head>
+<body>
+<div class="background-container">
+    <div class="content">
+        
+        <input type="text" id="name1" placeholder="Scrivi il tuo nome">
+        <br><br>
+
+        <input type="text" id="name2" placeholder="Scrivi il suo nome">
+        <br><br>
+		
+<div class="dropdown">
+    <input type="text" id="searchBar" onclick="showOptions()" onkeyup="filterOptions()" placeholder="SCEGLI LA CANZONE">
+    <div id="dropdownContent" class="dropdown-content">
+        <div id="optionsContainer" class="options-container">
+            <a href="#" onclick="selectOption('Ed Sheeran - Perfect')">Ed Sheeran - Perfect</a>
+			<a href="#" onclick="selectOption('Blundetto - Love Me')">Blundetto - Love Me</a>
+			<a href="#" onclick="selectOption('Ambra Angiolini - T'appartengo')">Ambra Angiolini - T'appartengo</a>
+			<a href="#" onclick="selectOption('Pinguini Tattici Nucleari - Pastello Bianco')">Pinguini Tattici Nucleari - Pastello Bianco</a>
+			<a href="#" onclick="selectOption('Un Drik o Due - Mecna')">Un Drik o Due - Mecna</a>
+			<a href="#" onclick="selectOption('Jovanotti - A te')">Jovanotti - A te</a>
+        </div>
+    </div>
+</div>
+        <button id="goToMachine" onclick="redirectToMachine()"></button>
+    </div>
+</div>
+
+<script>
+
+function calculateLoveScore() {
+    var name1 = document.getElementById("name1").value.trim().toLowerCase();
+    var name2 = document.getElementById("name2").value.trim().toLowerCase();
+
+    var selfReferences = ["me stesso", "me stessa", "me", "io", "me medesimo", "me medesima", "io stesso", "io stessa", "myself", "self"];
+
+    if (selfReferences.includes(name1) || selfReferences.includes(name2)) {
+        return 100;
+    }
+
+    var sum1 = sumOfCharCodes(name1);
+    var sum2 = sumOfCharCodes(name2);
+    return 60 + Math.abs(sum1 - sum2) % 41; // Calcola un punteggio tra 60 e 100
+}
+
+function sumOfCharCodes(str) {
+    return str.toUpperCase().split('').reduce((sum, char) => sum + char.charCodeAt(0), 0);
+}
+
+function redirectToMachine() {
+    var loveScore = calculateLoveScore();
+    window.location.href = 'machine.html?score=' + loveScore; // Reindirizza con il punteggio
+}
+
+  function showOptions() {
+        var dropdownContent = document.getElementById("dropdownContent");
+        dropdownContent.classList.add("show");
+    }
+
+    function filterOptions() {
+        var input, filter, optionsContainer, a, i, txtValue;
+        input = document.getElementById("searchBar");
+        filter = input.value.toUpperCase();
+        optionsContainer = document.getElementById("optionsContainer");
+        a = optionsContainer.getElementsByTagName('a');
+        for (i = 0; i < a.length; i++) {
+            txtValue = a[i].textContent || a[i].innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                a[i].style.display = "";
+            } else {
+                a[i].style.display = "none";
+            }
+        }
+    }
+
+    // Chiude il menu se si clicca fuori
+    window.onclick = function(event) {
+        if (!event.target.matches('#searchBar')) {
+            var dropdownContent = document.getElementById("dropdownContent");
+            dropdownContent.classList.remove('show');
+        }
+    }
+	
+function selectOption(text) {
+    var searchBar = document.getElementById("searchBar");
+    searchBar.value = text.length > 18 ? text.substring(0, 18) + "..." : text;
+    var dropdownContent = document.getElementById("dropdownContent");
+    dropdownContent.classList.remove('show');
+}
+
+
+</script>
+</body>
+</html>
