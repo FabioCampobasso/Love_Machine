@@ -2,29 +2,78 @@
 <html>
 <head>
     <title>Equalizzatore Grafico</title>
-    <link rel="stylesheet" type="text/css" href="stile.css">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap" rel="stylesheet">
 </head>
-<body>
-    <div id="equalizzatore">
-        <!-- Creazione di 10 tasselli -->
-        <div class="tassello"></div>
-        <div class="tassello"></div>
-        <div class="tassello"></div>
-        <div class="tassello"></div>
-        <div class="tassello"></div>
-        <div class="tassello"></div>
-        <div class="tassello"></div>
-        <div class="tassello"></div>
-        <div class="tassello"></div>
-        <div class="tassello"></div>
-    </div>
+<style>
+#equalizzatore {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 2187px;
+    width: 1080px;
+    background-image: url('sfondo.png');
+    margin-top: 20px;
+    padding: 10px;
+}
 
-<div class="input-group">
+
+.tassello {
+    height: 80px;
+    width: 800px;
+    background-color: white;
+    margin-top: -4px;
+    transition: background-color 0.1s ease;
+    border-radius: 50px;
+}
+
+#equalizzatore .tassello:first-child {
+    margin-top: 800px; /* Se ancora necessario */
+}
+
+#equalizzatore .tassello:last-child {
+    margin-bottom: 800px; /* Aggiusta questo valore secondo necessità */
+}
+.input-group {
+    text-align: center;
+    margin-bottom: 50px;
+	margin-top: 95px;
+}
+#bottone-calcola {
+    height: 489px;
+    width: 489px;
+    font-size: 50px; /* Aggiusta la dimensione del font se necessario */
+    background-image: url('tasto.png');
+	background-color: transparent;
+	border: none;
+	    font-family: 'Roboto', sans-serif;
+	font-weight: bold;
+	color: #ffffff;
+}
+
+
+</style>
+<body>
+
+    <div id="equalizzatore">
+	    <div class="input-group">
         <!-- Campo di input nascosto per mantenere il valore della percentuale -->
         <input type="hidden" id="percentuale-input">
-        <p id="percentuale-testo" style="display: none;">Percentuale: <span id="valore-percentuale"></span>%</p>
-        <button onclick="coloraTasselli()">CALCOLA</button>
+        <button onclick="coloraTasselli()" id="bottone-calcola">CALCOLA</button>
     </div>
+        <div class="tassello"></div>
+        <div class="tassello"></div>
+        <div class="tassello"></div>
+        <div class="tassello"></div>
+        <div class="tassello"></div>
+        <div class="tassello"></div>
+        <div class="tassello"></div>
+        <div class="tassello"></div>
+        <div class="tassello"></div>
+        <div class="tassello"></div>
+
+    </div>
+
+
 
     <script>
 	window.onload = function() {
@@ -40,12 +89,15 @@
 
 function coloraTasselli(callback) {
     let percentualeInput = document.getElementById('percentuale-input').value;
-    let percentuale = Math.min(Math.max(parseInt(percentualeInput), 0), 100); // Assicurati che sia tra 0 e 100
+    let percentuale = Math.min(Math.max(parseInt(percentualeInput), 0), 100);
     let tasselliFinali = Math.round(10 * percentuale / 100);
     let tasselli = document.querySelectorAll('.tassello');
     let iterazioni = 0;
-    
-    let intervallo = setInterval(() => {
+
+    document.getElementById('bottone-calcola').textContent = `${percentuale}%`;
+	
+
+   let intervallo = setInterval(() => {
         if (iterazioni >= 10) { // Numero di oscillazioni prima di fermarsi
             clearInterval(intervallo);
             impostaTasselli(tasselli, tasselliFinali);
@@ -61,11 +113,33 @@ function coloraTasselli(callback) {
     }, 300); // Intervallo tra ogni cambiamento (in millisecondi)
 }
 
+const tasselliImmagini = [
+    { attivo: '10_1.png', inattivo: '10_2.png' },
+    { attivo: '9_1.png', inattivo: '9_2.png' },
+    { attivo: '8_1.png', inattivo: '8_2.png' },
+    { attivo: '7_1.png', inattivo: '7_2.png' },
+    { attivo: '6_1.png', inattivo: '6_2.png' },
+    { attivo: '5_1.png', inattivo: '5_2.png' },
+    { attivo: '4_1.png', inattivo: '4_2.png' },
+    { attivo: '3_1.png', inattivo: '3_2.png' },
+    { attivo: '2_1.png', inattivo: '2_2.png' },
+    { attivo: '1_1.png', inattivo: '1_2.png' }
+];
+
+
 function impostaTasselli(tasselli, numero) {
+    let numeroTasselli = tasselli.length;
     tasselli.forEach((tassello, index) => {
-        tassello.style.backgroundColor = index < numero ? 'red' : 'white';
+        if (numeroTasselli - index <= numero) {
+            // Tassello attivo (dal fondo verso l'alto)
+            tassello.style.backgroundImage = `url('${tasselliImmagini[index].attivo}')`;
+        } else {
+            // Tassello inattivo
+            tassello.style.backgroundImage = `url('${tasselliImmagini[index].inattivo}')`;
+        }
     });
 }
+
 
 </script>
 </body>
