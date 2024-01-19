@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Equalizzatore Grafico</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
+
+</head>
+<style>
+#equalizzatore {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 2160px;
+    width: 1060px;
+    background-image: url('sfondo.png');
+    margin-top: 20px;
+    padding: 10px;
+}
+
+
+.tassello {
+    height: 80px;
+    width: 800px;
+    background-color: white;
+    margin-top: -4px;
+    transition: background-color 0.1s ease;
+    border-radius: 50px;
+}
+
+#equalizzatore .tassello:first-child {
+    margin-top: 800px; /* Se ancora necessario */
+}
+
+#equalizzatore .tassello:last-child {
+    margin-bottom: 800px; /* Aggiusta questo valore secondo necessità */
+}
+.input-group {
+    text-align: center;
+    margin-bottom: 50px;
+	margin-top: 95px;
+}
+#bottone-calcola {
+    height: 450px;
+    width: 450px;
+    font-size: 40px; /* Aggiusta la dimensione del font se necessario */
+    background-image: url('tasto.png');
+	background-color: transparent;
+	border: none;
+	    font-family: 'Roboto', sans-serif;
+	font-weight: bold;
+	color: #ffffff;
+	   background-size: cover;
+}
+iframe {
+	scale: 179%;
+
+}
+
+#nomeFrase {
+    color: #fdecd3; /* Scegli un colore che si distingua sul tuo sfondo */
+    font-size: 45px;
+	font-weight: bold;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    z-index: 1px;
+justify-content: center;
+	    left: 50%; 
+		border: none;
+width: 100%;
+margin-top: 50px;
+}
+
+#nomeFrase .nomi {
+    font-size: 65px; /* Dimensione del testo per i nomi */
+	 color: #fdecd3;
+}
+.container-bottoni {
+            text-align: center; /* Allinea al centro il contenuto */
+            padding: 20px; /* Spazio intorno ai bottoni */
+        }
+
+#bottone1 {
+    margin: 80px;
+    margin-top: 10px; /* Distanza tra i bottoni */
+    padding: 10px 40px; /* Dimensione dei bottoni */
+    font-size: 45px; /* Dimensione del testo */
+    cursor: pointer; /* Cursor cambia su hover */
+    border-radius: 50px;
+    color: #fdecd3;
+    background-color: #f92d83;
+    font-weight: bold;
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+		
+		        #bottone2 {
+    margin: 80px;
+    margin-top: 10px; /* Distanza tra i bottoni */
+    padding: 10px 40px; /* Dimensione dei bottoni */
+    font-size: 45px; /* Dimensione del testo */
+    cursor: pointer; /* Cursor cambia su hover */
+    border-radius: 50px;
+    background-color: #fdecd3;
+    color: #f92d83;
+    font-weight: bold;
+    font-family: 'Roboto Condensed', sans-serif;
+	text-decoration: none;
+}
+
+		        #bottone3 {
+				
+   width: 100%;
+   height: 150px;
+    margin-bottom: -10px; /* Distanza tra i bottoni */
+border: none;
+}
+
+
+</style>
+<body>
+
+    <div id="equalizzatore">
+	    <div class="input-group">
+        <!-- Campo di input nascosto per mantenere il valore della percentuale -->
+        <input type="hidden" id="percentuale-input">
+        <button onclick="coloraTasselli()" id="bottone-calcola">%</button>
+    </div>
+        <div class="tassello"></div>
+        <div class="tassello"></div>
+        <div class="tassello"></div>
+        <div class="tassello"></div>
+        <div class="tassello"></div>
+        <div class="tassello"></div>
+        <div class="tassello"></div>
+        <div class="tassello"></div>
+        <div class="tassello"></div>
+        <div class="tassello"></div>
+    <div style="margin-top: 100px;">
+    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/0tgVpDi06FyKpA1z0VMD4v?utm_source=generator" width="385" height="170" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+</div>
+<div class="container-bottoni">
+<p id="nomeFrase"></p>
+        <button id="bottone1">CONDIVIDI</button>
+        <a href="https://open.spotify.com/playlist/4DOsjTjwW4ZVJiDKs075cI?si=0d6d8dcd067e4665" id="bottone2">RICALCOLA</a>
+    </div>
+	<a href="https://open.spotify.com/playlist/4DOsjTjwW4ZVJiDKs075cI?si=8e202438ea61462f" id="bottone3"></a>
+    </div> 
+	
+	
+
+
+
+    <script>
+window.onload = function() {
+    var urlParams = new URLSearchParams(window.location.search);
+    var score = parseInt(urlParams.get('score')) - 1271; // Sottrai 1271 dal punteggio
+    var name1 = urlParams.get('name1');
+    var name2 = urlParams.get('name2');
+
+    document.getElementById('percentuale-input').value = score;
+
+    // Inizia l'animazione, poi mostra la percentuale
+    coloraTasselli(function() {
+        document.getElementById('valore-percentuale').textContent = score;
+        document.getElementById('percentuale-testo').style.display = 'block';
+    });
+
+    // Aggiungi la visualizzazione della frase con i nomi
+if (name1 && name2) {
+    document.getElementById('nomeFrase').innerHTML = 'La canzone di <br><span class="nomi">' + decodeURIComponent(name1) + ' e ' + decodeURIComponent(name2) + '</span>';
+}
+
+};
+
+
+
+function coloraTasselli(callback) {
+    let percentualeInput = document.getElementById('percentuale-input').value;
+    let percentuale = Math.min(Math.max(parseInt(percentualeInput), 0), 100);
+    let tasselliFinali = Math.round(10 * percentuale / 100);
+    let tasselli = document.querySelectorAll('.tassello');
+    let iterazioni = 0;
+
+    document.getElementById('bottone-calcola').textContent = `${percentuale}%`;
+	
+
+   let intervallo = setInterval(() => {
+        if (iterazioni >= 30) { // Numero di oscillazioni prima di fermarsi
+            clearInterval(intervallo);
+            impostaTasselli(tasselli, tasselliFinali);
+            if (typeof callback === 'function') {
+                callback(); // Chiama il callback dopo l'animazione
+            }
+            return;
+        }
+
+        let tasselliRandom = Math.floor(Math.random() * 10);
+        impostaTasselli(tasselli, tasselliRandom);
+        iterazioni++;
+    }, 100); // Intervallo tra ogni cambiamento (in millisecondi)
+}
+
+const tasselliImmagini = [
+    { attivo: '10_1.png', inattivo: '10_2.png' },
+    { attivo: '9_1.png', inattivo: '9_2.png' },
+    { attivo: '8_1.png', inattivo: '8_2.png' },
+    { attivo: '7_1.png', inattivo: '7_2.png' },
+    { attivo: '6_1.png', inattivo: '6_2.png' },
+    { attivo: '5_1.png', inattivo: '5_2.png' },
+    { attivo: '4_1.png', inattivo: '4_2.png' },
+    { attivo: '3_1.png', inattivo: '3_2.png' },
+    { attivo: '2_1.png', inattivo: '2_2.png' },
+    { attivo: '1_1.png', inattivo: '1_2.png' }
+];
+
+
+function impostaTasselli(tasselli, numero) {
+    // Spegni tutti i tasselli e reimposta il loro z-index
+    tasselli.forEach((tassello, index) => {
+        tassello.style.backgroundImage = `url('${tasselliImmagini[index].inattivo}')`;
+        tassello.style.zIndex = '1'; // Imposta un valore di base per z-index
+    });
+
+    // Accendi solo il tassello specificato
+    if (numero > 0 && numero <= tasselli.length) {
+        // Il tassello da accendere è determinato dal "love score"
+        let tasselloSelezionato = tasselli[tasselli.length - numero]; // Modifica qui
+        tasselloSelezionato.style.backgroundImage = `url('${tasselliImmagini[tasselli.length - numero].attivo}')`; // Modifica qui
+        tasselloSelezionato.style.zIndex = '2'; // Porta il tassello selezionato in primo piano
+    }
+}
+
+
+
+document.getElementById('bottone1').addEventListener('click', function() {
+    if (navigator.share) {
+        navigator.share({
+            title: 'Condividi il Link',
+            url: window.location.href
+        }).then(() => {
+            console.log('Link condiviso con successo!');
+        }).catch((error) => {
+            console.log('Errore nella condivisione:', error);
+        });
+    } else {
+        // Gestisci il caso in cui l'API Web Share non è disponibile
+        alert('La condivisione non è supportata in questo browser.');
+    }
+});
+
+
+</script>
+</body>
+</html>
+
