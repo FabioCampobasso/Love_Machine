@@ -1,20 +1,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Equalizzatore Grafico</title>
+    <title>Love Machine</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <style>
-
+        body {
+			 background-color: #f92d83;          
+        }
     #equalizzatore {
         display: flex;
         flex-direction: column;
         align-items: center;
-        height: 2160px;
+        height: 2180px;
         width: 1080px;
         background-image: url('sfondo.png');
         margin-top: 20px;
+		margin-left: -8px;
        
     }
 
@@ -70,6 +73,7 @@
 
 
     iframe {
+	margin-top: 20px;
         scale: 179%;
     }
 
@@ -88,7 +92,7 @@
     }
 
     #nomeFrase .nomi {
-        font-size: 65px;
+        font-size: 75px;
         color: #fdecd3;
     }
 
@@ -135,8 +139,8 @@
 	
 	#container {
     position: absolute;
-    top: 50%;
-    left: 50%;
+    top: 10%;
+    left: 55%;
     transform: translate(-50%, -50%);
 z-index: -5px;
 }
@@ -166,9 +170,13 @@ z-index: -5px;
     0% {
         transform: translate(var(--x), var(--y));
     }
+	
+	    50% {
+        opacity: 1;
+    }
     100% {
-        transform: translate(var(--x), calc(var(--y) + 4000px)); /* aggiungi qui la distanza di caduta */
-       
+        transform: translate(var(--x), calc(var(--y) + 1500px)); /* aggiungi qui la distanza di caduta */
+        opacity: 0;
     }
 }
 
@@ -231,7 +239,7 @@ z-index: -5px;
     <script>
         window.onload = function() {
             var urlParams = new URLSearchParams(window.location.search);
-            var score = parseInt(urlParams.get('score')) - 1270; // Sottrai 1271 dal punteggio
+            var score = parseInt(urlParams.get('score')) - 1271; // Sottrai 1271 dal punteggio
             var name1 = urlParams.get('name1');
             var name2 = urlParams.get('name2');
 
@@ -249,32 +257,43 @@ z-index: -5px;
             }
         };
 
-       function coloraTasselli(callback) {
+function coloraTasselli(callback) {
     let percentualeInput = document.getElementById('percentuale-input').value;
     let percentuale = Math.min(Math.max(parseInt(percentualeInput), 0), 100);
-    let tasselliFinali = Math.round(10 * percentuale / 100);
+    let durataAnimazione = 3000; 
+    let intervalloAggiornamento = 50;
+    let metaDurata = durataAnimazione / 2; 
+    let incrementoPerAggiornamento = 100 / (metaDurata / intervalloAggiornamento); 
+    let percentualeCorrente = 0;
     let tasselli = document.querySelectorAll('.tassello');
-    let iterazioni = 0;
-    let contatoreTasselli = 0;
-
-    document.getElementById('bottone-calcola').textContent = `${percentuale}%`;
+    let fase = 1; 
 
     let intervallo = setInterval(() => {
-        if (iterazioni >= 18) { // Numero di oscillazioni prima di fermarsi
+        percentualeCorrente += incrementoPerAggiornamento;
+
+        // Controlla la fase dell'animazione
+        if (fase === 1 && percentualeCorrente >= 100) {
+            // Inizia la seconda fase
+            fase = 2;
+            percentualeCorrente = 0;
+            incrementoPerAggiornamento = percentuale / (metaDurata / intervalloAggiornamento);
+        } else if (fase === 2 && percentualeCorrente >= percentuale) {
+            // Termina l'animazione nella seconda fase
+            percentualeCorrente = percentuale;
             clearInterval(intervallo);
-            impostaTasselli(tasselli, tasselliFinali);
             if (typeof callback === 'function') {
                 callback(); // Chiama il callback dopo l'animazione
             }
-            return;
         }
 
-        // Attiva i tasselli in ordine da 1 a 10
-        contatoreTasselli = (contatoreTasselli % 10) + 1; 
-        impostaTasselli(tasselli, contatoreTasselli);
-        iterazioni++;
-    }, 150); // Intervallo tra ogni cambiamento (in millisecondi)
+        // Aggiorna il testo del bottone e i tasselli
+        document.getElementById('bottone-calcola').textContent = `${Math.round(percentualeCorrente)}%`;
+        let tasselliFinali = Math.round(10 * percentualeCorrente / 100);
+        impostaTasselli(tasselli, tasselliFinali);
+    }, intervalloAggiornamento);
 }
+
+
 
 
         const tasselliImmagini = [
@@ -330,7 +349,7 @@ z-index: -5px;
             elem.style.setProperty('--y', y);
             elem.classList.add('esploso');
         });
-    }, 3000); // 3000 millisecondi = 3 secondi
+    }, 3200); // 3000 millisecondi = 3 secondi
 
     </script>
 </body>
