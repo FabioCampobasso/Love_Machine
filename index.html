@@ -17,8 +17,8 @@ body {
 }
 
 .background-container img {
-    width: 100vw; /* Larghezza del viewport */
-    height: auto; /* Altezza si adatta automaticamente */
+    width: 100vw;
+    height: auto;
     margin-top: -5px;
 }
 
@@ -44,7 +44,7 @@ body {
     transform: translate(-50%, -50%);
     background-color: transparent;
     border: none;
-    color: #fff; /* Testo bianco */
+    color: #fff;
     font-size: 18px;
     text-align: center;
     font-family: 'Roboto', sans-serif;
@@ -58,37 +58,29 @@ body {
     transform: translate(-50%, -50%);
     background-color: transparent;
     border: none;
-    color: #fff; /* Testo bianco */
+    color: #fff;
     font-size: 17px;
     text-align: left;
     font-family: 'Roboto', sans-serif;
     outline: none;
-	
 }
-
 
 #name1::placeholder, #name2::placeholder, #searchBar::placeholder {
     color: #fff;
-
 }
 
-
-
-
 .dropdown {
-
     display: inline-block;
     z-index: 1;
     border: none;
-	
 }
 
 .dropdown-content {
     width: 200px;
     position: absolute;
-    left: 50%; /* Centrato orizzontalmente rispetto al dropdown */
+    left: 50%;
     transform: translateX(-50%);
-    top: 60px; /* Posizionato sotto il #searchBar */
+    top: 60px;
     padding: 5px;
     font-size: 15px;
     font-family: 'Roboto', sans-serif;
@@ -97,7 +89,6 @@ body {
     border-radius: 0px;
     outline: none;
     background-color: #ff1356;
-   
     display: none;
     z-index: 1;
 }
@@ -110,7 +101,7 @@ body {
     border-radius: 20px;
     outline: none;
     font-family: 'Roboto', sans-serif;
-    color: #fff; /* Testo bianco */
+    color: #fff;
     z-index: 1;
 }
 
@@ -121,7 +112,7 @@ body {
 }
 
 .options-container a {
-    color: #fff; /* Testo bianco */
+    color: #fff;
     padding: 12px 16px;
     text-decoration: none;
     display: block;
@@ -132,7 +123,7 @@ body {
 
 .options-container a:hover {
     border: none;
-    color: #000; /* Testo nero al passaggio del mouse per contrasto */
+    color: #000;
     border-radius: 10px;
     z-index: 1;
 }
@@ -140,8 +131,8 @@ body {
 .show {display: block;}
 
 #goToMachine {
-    width: 250px; /* Larghezza fissa */
-    height: 250px; /* Altezza fissa */
+    width: 250px;
+    height: 250px;
     position: fixed;
     left: 50%;
     transform: translateX(-50%);
@@ -156,28 +147,17 @@ body {
 </head>
 <body>
 <div class="background-container">
-    <!-- Immagine 1 (non modificata) -->
     <img src="sfondo/1.png" alt="Immagine 1">
-
-    <!-- Immagine 2 con campo di input #name1 -->
     <div id="image2">
         <img src="sfondo/2.png" alt="Immagine 2">
         <input type="text" id="name1" placeholder="Scrivi il tuo nome">
     </div>
-
-    <!-- Immagine 3 (non modificata) -->
     <img src="sfondo/3.png" alt="Immagine 3">
-
-    <!-- Immagine 4 con campo di input #name2 -->
     <div id="image4">
         <img src="sfondo/4.png" alt="Immagine 4">
         <input type="text" id="name2" placeholder="Scrivi il suo nome">
     </div>
-
-    <!-- Immagine 5 (non modificata) -->
     <img src="sfondo/5.png" alt="Immagine 5">
-
-    <!-- Immagine 6 con campo di input #searchBar -->
     <div id="image6">
         <img src="sfondo/6.png" alt="Immagine 6">
         <div class="dropdown">
@@ -186,7 +166,7 @@ body {
                 <div id="optionsContainer" class="options-container">
                     <a href="#" onclick="selectOption('Ed Sheeran - Perfect', 'machine_1.html')">Ed Sheeran - Perfect</a>
                     <a href="#" onclick="selectOption('Blundetto - Love Me', 'machine_2.html')">Blundetto - Love Me</a>
-                    <a href="#" onclick="selectOption('Ambra Angiolini - T'appartengo', 'machine_3.html')">Ambra Angiolini - T'appartengo</a>
+                    <a href="#" onclick="selectOption('Ambra Angiolini - T\'appartengo', 'machine_3.html')">Ambra Angiolini - T'appartengo</a>
                     <a href="#" onclick="selectOption('Pinguini Tattici Nucleari - Pastello Bianco', 'machine_4.html')">Pinguini Tattici Nucleari - Pastello Bianco</a>
                     <a href="#" onclick="selectOption('Un Drik o Due - Mecna', 'machine_5.html')">Un Drik o Due - Mecna</a>
                     <a href="#" onclick="selectOption('Jovanotti - A te', 'machine_6.html')">Jovanotti - A te</a>
@@ -194,16 +174,10 @@ body {
             </div>
         </div>
     </div>
-
-    <!-- Immagine 7 (non modificata) -->
     <div style="margin-top: 5px;">
     <img src="sfondo/7.png" alt="Immagine 7">
 </div>
-
-
-    <!-- Immagine 8 (non modificata) -->
     <img src="sfondo/8.png" alt="Immagine 8" id="image8">
-
 </div>
 
 <script>
@@ -220,7 +194,7 @@ function calculateLoveScore() {
 
     var sum1 = sumOfCharCodes(name1);
     var sum2 = sumOfCharCodes(name2);
-    return 60 + Math.abs(sum1 - sum2) % 41; // Calcola un punteggio tra 60 e 100
+    return 60 + Math.abs(sum1 - sum2) % 41;
 }
 
 function sumOfCharCodes(str) {
@@ -241,61 +215,53 @@ function redirectToMachine() {
     }
 }
 
-
-
 document.getElementById("image8").addEventListener("click", function() {
     var searchBar = document.getElementById("searchBar");
     var url = searchBar.getAttribute('data-url');
     if (url) {
-        redirectToMachine(); // Richiama la funzione redirectToMachine quando si clicca sull'immagine 8
+        redirectToMachine();
     }
 });
 
+function showOptions() {
+    var dropdownContent = document.getElementById("dropdownContent");
+    dropdownContent.classList.add("show");
+}
 
-  function showOptions() {
+function filterOptions() {
+    var input, filter, optionsContainer, a, i, txtValue;
+    input = document.getElementById("searchBar");
+    filter = input.value.toUpperCase();
+    optionsContainer = document.getElementById("optionsContainer");
+    a = optionsContainer.getElementsByTagName('a');
+    for (i = 0; i < a.length; i++) {
+        txtValue = a[i].textContent || a[i].innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            a[i].style.display = "";
+        } else {
+            a[i].style.display = "none";
+        }
+    }
+}
+
+window.onclick = function(event) {
+    if (!event.target.matches('#searchBar')) {
         var dropdownContent = document.getElementById("dropdownContent");
-        dropdownContent.classList.add("show");
+        dropdownContent.classList.remove('show');
     }
+}
 
-    function filterOptions() {
-        var input, filter, optionsContainer, a, i, txtValue;
-        input = document.getElementById("searchBar");
-        filter = input.value.toUpperCase();
-        optionsContainer = document.getElementById("optionsContainer");
-        a = optionsContainer.getElementsByTagName('a');
-        for (i = 0; i < a.length; i++) {
-            txtValue = a[i].textContent || a[i].innerText;
-            if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                a[i].style.display = "";
-            } else {
-                a[i].style.display = "none";
-            }
-        }
-    }
-
-    // Chiude il menu se si clicca fuori
-    window.onclick = function(event) {
-        if (!event.target.matches('#searchBar')) {
-            var dropdownContent = document.getElementById("dropdownContent");
-            dropdownContent.classList.remove('show');
-        }
-    }
-	
 function selectOption(text, url) {
     var searchBar = document.getElementById("searchBar");
-
-    // Tronca il testo se è più lungo di 18 caratteri e aggiungi "..."
     searchBar.value = text.length > 18 ? text.substring(0, 18) + "..." : text;
 
     if (url) {
-        searchBar.setAttribute('data-url', url); // Salva l'URL come attributo
+        searchBar.setAttribute('data-url', url);
     }
 
     var dropdownContent = document.getElementById("dropdownContent");
     dropdownContent.classList.remove('show');
 }
-
-
 
 </script>
 </body>
