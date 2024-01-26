@@ -7,7 +7,8 @@
 </head>
 <style>
         body {
-			 background-color: #f92d83;          
+			 background-color: #f92d83;    
+overflow-x: hidden;			 
         }
     #equalizzatore {
         display: flex;
@@ -18,11 +19,11 @@
         background-image: url('sfondo.png');
         margin-top: 20px;
 		margin-left: -8px;
-       
+       overflow: hidden;
     }
 
     .tassello {
-        height: 87px;
+        height: 80px;
         width: 800px;
         background-color: white;
         margin-top: -4.5px;
@@ -70,12 +71,6 @@
         opacity: 1;
     }
 }
-
-
-    iframe {
-	margin-top: 23px;
-        scale: 179%;
-    }
 
     #nomeFrase {
         color: #fdecd3;
@@ -150,8 +145,8 @@ z-index: -5px;
     opacity: 0;
     transform: scale(0);
     transition: transform 0.5s, opacity 0.5s;
-	width: 80px;
-	height: 80px;
+	width: 50px;
+	height: 50px;
 	z-index: -5px;
 }
 
@@ -184,6 +179,24 @@ z-index: -5px;
     animation: esplosione 0.5s forwards, caduta 5s 0.5s forwards;
 	z-index: -5px;
 }
+
+#barra-caricamento-container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    height: 50px;
+    z-index: 1000;
+}
+
+#barra-caricamento {
+    background-color: red;
+    width: 0%;
+    height: 100%;
+    transition: width 10s linear;
+}
+
 </style>
 <body>
 
@@ -226,9 +239,12 @@ z-index: -5px;
         <div class="tassello"></div>
         <div class="tassello"></div>
         <div class="tassello"></div>
-        <div style="margin-top: 100px;">
-            <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/0tgVpDi06FyKpA1z0VMD4v?utm_source=generator" width="385" height="170" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-        </div>
+		
+		<div id="barra-caricamento-container">
+    <div id="barra-caricamento"></div>
+</div>
+
+
         <div class="container-bottoni">
             <p id="nomeFrase"></p>
             <button id="bottone1">CONDIVIDI</button>
@@ -255,7 +271,14 @@ z-index: -5px;
             if (name1 && name2) {
                 document.getElementById('nomeFrase').innerHTML = 'La canzone di <br><span class="nomi">' + decodeURIComponent(name1) + ' e ' + decodeURIComponent(name2) + '</span>';
             }
-        };
+        var barraCaricamento = document.getElementById('barra-caricamento');
+    barraCaricamento.style.width = '100%';
+
+    // Imposta un timeout per reindirizzare dopo 20 secondi
+    setTimeout(function() {
+        window.location.href = "https://open.spotify.com/intl-it/track/5qbVso0dAtoI2gFhj7V8oG?si=198ae5344bd14802"; // Modifica con il tuo URL Spotify
+    }, 10000);
+};
 
 function coloraTasselli(callback) {
     let percentualeInput = document.getElementById('percentuale-input').value;
@@ -348,7 +371,7 @@ setTimeout(() => {
         const angle = (index / totalElements) * Math.PI * 2; // Distribuzione angolare
 
         // Assegna un raggio casuale tra 100 e 500
-        const radius = 300 + Math.random() * 400; // Raggio variabile
+        const radius = 200 + Math.random() * 300; // Raggio variabile
 
         const x = Math.cos(angle) * radius + 'px';
         const y = Math.sin(angle) * radius + 'px';
