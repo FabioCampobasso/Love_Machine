@@ -194,8 +194,11 @@ function calculateLoveScore() {
 
     var sum1 = sumOfCharCodes(name1);
     var sum2 = sumOfCharCodes(name2);
-    return 60 + Math.abs(sum1 - sum2) % 41;
+
+    // Modifica qui la formula per il calcolo del punteggio
+    return 10 + Math.abs(sum1 - sum2) % 91;
 }
+
 
 function sumOfCharCodes(str) {
     return str.toUpperCase().split('').reduce((sum, char) => sum + char.charCodeAt(0), 0);

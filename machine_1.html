@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Love Machine</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.3.2/html2canvas.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
 </head>
@@ -256,6 +257,8 @@ z-index: -5px;
             <button id="bottone1">CONDIVIDI</button>
             <a href="https://open.spotify.com/playlist/4DOsjTjwW4ZVJiDKs075cI?si=0d6d8dcd067e4665" id="bottone2">RICALCOLA</a>
 
+
+
     <script>
         window.onload = function() {
             var urlParams = new URLSearchParams(window.location.search);
@@ -351,6 +354,29 @@ function coloraTasselli(callback) {
                 tasselloSelezionato.style.zIndex = '2'; // Porta il tassello selezionato in primo piano
             }
         }
+		
+document.getElementById('bottone1').addEventListener('click', function() {
+    html2canvas(document.querySelector("#equalizzatore")).then(canvas => {
+        canvas.toBlob(function(blob) {
+            let formData = new FormData();
+            formData.append("screenshot", blob, "screenshot.png");
+
+            fetch('upload.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => {
+                console.log(data);
+                // Qui puoi gestire la risposta del server, ad esempio mostrando un link all'immagine o un messaggio di successo
+            })
+            .catch(error => {
+                console.error(error);
+            });
+        }, 'image/png');
+    });
+});
+
 
         document.getElementById('bottone1').addEventListener('click', function() {
             if (navigator.share) {
@@ -386,6 +412,13 @@ setTimeout(() => {
     });
 }, 3200); // 3200 millisecondi = 3.2 secondi
 
+// Disabilita il bottone all'avvio della pagina
+document.getElementById('bottone1').disabled = true;
+
+setTimeout(function() {
+    // Abilita il bottone dopo 3 secondi
+    document.getElementById('bottone1').disabled = false;
+}, 3000); // 3000 millisecondi = 3 secondi
 
     </script>
 </body>
