@@ -58,16 +58,26 @@ body {
     transform: translate(-50%, -50%);
     background-color: transparent;
     border: none;
-    color: #fff;
+    color: white;
     font-size: 17px;
     text-align: left;
     font-family: 'Roboto', sans-serif;
     outline: none;
+    width: 210px; /* Imposta una larghezza specifica per la barra di ricerca */
+	border: none;
 }
 
-#name1::placeholder, #name2::placeholder, #searchBar::placeholder {
-    color: #fff;
+#name1::placeholder, #name2::placeholder {
+    color: white;
+    text-align: center; /* Assicura che il testo placeholder sia allineato a sinistra */
 }
+
+ #searchBar::placeholder {
+    color: white;
+    text-align: left; /* Assicura che il testo placeholder sia allineato a sinistra */
+}
+
+
 
 .dropdown {
     display: inline-block;
